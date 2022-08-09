@@ -5,6 +5,9 @@
 	"description": "Aplicación para gestionar usuarios",
 	"main": "index.js",
 	"scripts": {
+		"db:migrate": "sequelize db:migrate",
+		"db:seed": "sequelize db:seed:all",
+		"db:reset": "sequelize db:migrate:undo:all && sequelize db:seed:all",
 		"format": "prettier --write .",
 		"lint": "eslint --fix . --ext .js",
 		"start": "node index.js",
