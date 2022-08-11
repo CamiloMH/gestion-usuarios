@@ -1,4 +1,5 @@
-import express, { application } from 'express'
+import authRouter from '../routes/auth.routes.js'
+import express from 'express'
 
 const app = express()
 
@@ -7,5 +8,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Routes
-app.use('/api', require('./routes'))
+app.use('/api/auth', authRouter)
+
 export default app
