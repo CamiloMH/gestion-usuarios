@@ -1,7 +1,11 @@
-import express from 'express'
+import express, { application } from 'express'
 
 const app = express()
 
-// TODO Añadir middlewares, routes...
+// Middlewares
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
+// Routes
+app.use('/api', require('./routes'))
 export default app
