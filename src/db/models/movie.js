@@ -4,9 +4,8 @@ module.exports = (sequelize, DataTypes) => {
 	class Movie extends Model {
 		static associate(models) {
 			// define association here
-			Movie.belongsTo(models.Characters_movie, {
+			Movie.belongsTo(models.CharactersMovie, {
 				foreignKey: 'idMovie',
-				as: 'id',
 			})
 			Movie.belongsTo(models.Gender, {
 				foreignKey: 'idGender',

@@ -1,5 +1,5 @@
-import './config/env.js'
-import httpServer from './config/http.js'
+require('dotenv').config()
+const httpServer = require('./config/http')
 
 const PORT = process.env.PORT || '3000'
 

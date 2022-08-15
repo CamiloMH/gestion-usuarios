@@ -1,6 +1,6 @@
-import { validateSchemas } from '../utils/validate-schemas.js'
+const { validateSchemas } = require('../utils/validate-schemas.js')
 
-export const loginDTO = (req, res, next) => {
+const loginDTO = (req, res, next) => {
 	const isValid = validateSchemas.login(req.body)
 	if (!isValid)
 		return res.status(400).json({
@@ -10,7 +10,7 @@ export const loginDTO = (req, res, next) => {
 	next()
 }
 
-export const registerDTO = (req, res, next) => {
+const registerDTO = (req, res, next) => {
 	const isValid = validateSchemas.register(req.body)
 	if (!isValid)
 		return res.status(400).json({
@@ -20,7 +20,7 @@ export const registerDTO = (req, res, next) => {
 	next()
 }
 
-export const recoveryPasswordDTO = (req, res, next) => {
+const recoveryPasswordDTO = (req, res, next) => {
 	const isValid = validateSchemas.recoveryPassword(req.body)
 	if (!isValid)
 		return res.status(400).json({
@@ -30,4 +30,10 @@ export const recoveryPasswordDTO = (req, res, next) => {
 		})
 
 	next()
+}
+
+module.exports = {
+	loginDTO,
+	registerDTO,
+	recoveryPasswordDTO,
 }

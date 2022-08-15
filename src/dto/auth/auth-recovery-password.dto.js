@@ -1,8 +1,8 @@
-import Ajv from 'ajv'
-import addFormats from 'ajv-formats'
-import addErrors from 'ajv-errors'
-import { Type } from '@sinclair/typebox'
-import { emailDTO } from '../../utils/dto-types.js'
+const Ajv = require('ajv')
+const addFormats = require('ajv-formats')
+const addErrors = require('ajv-errors')
+const { Type } = require('@sinclair/typebox')
+const { emailDTO } = require('../../utils/dto-types.js')
 
 const recoveryPasswordDTOSchema = Type.Object(
 	{
@@ -23,4 +23,4 @@ addErrors(ajv)
 
 const validateSchemaRecoveryPassword = ajv.compile(recoveryPasswordDTOSchema)
 
-export default validateSchemaRecoveryPassword
+module.exports = validateSchemaRecoveryPassword

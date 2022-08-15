@@ -1,4 +1,4 @@
-import '../config/env.js'
+require('dotenv').config()
 const {
 	DB_HOST,
 	DB_PORT,
@@ -8,7 +8,8 @@ const {
 	DB_DIALECT,
 	DB_NAME_TEST,
 } = process.env
-export default {
+
+module.exports = {
 	development: {
 		username: DB_USER,
 		password: DB_PASS,

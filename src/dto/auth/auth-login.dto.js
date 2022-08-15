@@ -1,8 +1,8 @@
-import Ajv from 'ajv'
-import addFormats from 'ajv-formats'
-import addErrors from 'ajv-errors'
-import { Type } from '@sinclair/typebox'
-import { passwordDTO, usernameDTO } from '../../utils/dto-types.js'
+const Ajv = require('ajv')
+const addFormats = require('ajv-formats')
+const addErrors = require('ajv-errors')
+const { Type } = require('@sinclair/typebox')
+const { passwordDTO, usernameDTO } = require('../../utils/dto-types.js')
 
 const loginDTOSchema = Type.Object(
 	{
@@ -27,4 +27,4 @@ addErrors(ajv)
 
 const validateSchemaLogin = ajv.compile(loginDTOSchema)
 
-export default validateSchemaLogin
+module.exports = validateSchemaLogin

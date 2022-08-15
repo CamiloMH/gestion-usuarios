@@ -1,6 +1,6 @@
-import { Type } from '@sinclair/typebox'
+const { Type } = require('@sinclair/typebox')
 
-export const usernameDTO = Type.String({
+const usernameDTO = Type.String({
 	minLength: 3,
 	maxLength: 40,
 	errorMessage: {
@@ -11,7 +11,7 @@ export const usernameDTO = Type.String({
 	},
 })
 
-export const passwordDTO = Type.String({
+const passwordDTO = Type.String({
 	// password minimo 10 caracteres, maximo 20 y al menos una letra mayuscula, una minuscula y un número
 	format: 'password',
 	minLength: 10,
@@ -25,10 +25,16 @@ export const passwordDTO = Type.String({
 	},
 })
 
-export const emailDTO = Type.String({
+const emailDTO = Type.String({
 	format: 'email',
 	errorMessage: {
 		type: 'Email debe ser un string',
 		format: 'Email no es válido',
 	},
 })
+
+module.exports = {
+	usernameDTO,
+	passwordDTO,
+	emailDTO,
+}

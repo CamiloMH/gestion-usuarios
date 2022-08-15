@@ -1,5 +1,4 @@
-import authRouter from '../routes/auth.routes.js'
-import express from 'express'
+const express = require('express')
 
 const app = express()
 
@@ -7,7 +6,7 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// Routes
-app.use('/api/auth', authRouter)
+// Routes dynamic
+app.use('/api', require('../routes'))
 
-export default app
+module.exports = app

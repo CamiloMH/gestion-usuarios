@@ -1,13 +1,13 @@
 'use strict'
-import { Model } from 'sequelize'
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
 	class Character extends Model {
 		static associate(models) {
 			// define association here
-			Character.belongsTo(models.Character_Movie, {
-				foreignKey: 'idCharacter',
-				as: 'character_movie',
-			})
+			// Character.hasMany(models.Character_Movie, {
+			// 	foreignKey: 'idCharacter',
+			// 	as: 'character_movie',
+			// })
 		}
 	}
 	Character.init(

@@ -1,13 +1,9 @@
 const Ajv = require('ajv')
-const addFormats = require('ajv-formats')
 const addErrors = require('ajv-errors')
 const { Type } = require('@sinclair/typebox')
-const { emailDTO, passwordDTO, usernameDTO } = require('../../utils/dto-types.js')
 
-const registerDTOSchema = Type.Object(
+const userDTOSchema = Type.Object(
 	{
-		username: usernameDTO,
-		password: passwordDTO,
 		nombre: Type.String({
 			minLength: 3,
 			maxLength: 20,
@@ -17,7 +13,6 @@ const registerDTOSchema = Type.Object(
 				maxLength: 'Nombre no puede tener más de 20 caracteres',
 			},
 		}),
-		email: emailDTO,
 	},
 	{
 		additionalProperties: false,
@@ -28,12 +23,10 @@ const registerDTOSchema = Type.Object(
 )
 
 const ajv = new Ajv({ allErrors: true })
-// Custom format password
-ajv.addFormat('password', /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/)
-
-addFormats(ajv, ['email']).addKeyword('kind').addKeyword('modifier')
+	.addKeyword('kind')
+	.addKeyword('modifier')
 addErrors(ajv)
 
-const validateSchemaRegister = ajv.compile(registerDTOSchema)
+const validateSchemaUserUpdate = ajv.compile(userDTOSchema)
 
-module.exports = validateSchemaRegister
+module.exports = validateSchemaUserUpdate
