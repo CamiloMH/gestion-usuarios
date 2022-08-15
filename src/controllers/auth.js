@@ -3,6 +3,7 @@ const { User } = require('../db/models')
 const { hash, compare } = require('bcrypt')
 const { SignJWT } = require('jose')
 const { BadRequest, Conflict } = require('../utils/errors')
+const { ROLE_USER } = require('../constants/role')
 
 const register = async (req, res, next) => {
 	const { username, nombre, email, password } = req.body
@@ -19,6 +20,7 @@ const register = async (req, res, next) => {
 			email,
 			enable: true,
 			password: hashedPassword,
+			role: ROLE_USER,
 		})
 		await user.save() // Guardar usuario en la base de datos
 		res.status(201).json({ status: 'OK', message: 'User created' })
@@ -36,7 +38,7 @@ const login = async (req, res, next) => {
 		const checkPassword = await compare(password, user.password) // Comparar password con el hash de la base de datos
 		if (!checkPassword) throw new BadRequest('Credentials incorrect') // Si no coinciden, retornar error
 
-		const payload = new SignJWT({ id: user.id }) // Crear payload con el id del usuario
+		const payload = new SignJWT({ id: user.id, role: user.role }) // Crear payload con el id del usuario
 
 		const encoder = new TextEncoder()
 		const token = await payload
