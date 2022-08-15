@@ -4,6 +4,7 @@ const { hash, compare } = require('bcrypt')
 const { SignJWT } = require('jose')
 const { BadRequest, Conflict } = require('../utils/errors')
 const { ROLE_USER } = require('../constants/role')
+const SALT = require('../constants/salt')
 
 const register = async (req, res, next) => {
 	const { username, nombre, email, password } = req.body
@@ -13,7 +14,7 @@ const register = async (req, res, next) => {
 			where: { [Op.or]: [{ username }, { email }] },
 		})
 		if (getUser) throw new Conflict('User already exists') // Si existe, retornar error
-		const hashedPassword = await hash(password, 10) // Encriptar password
+		const hashedPassword = await hash(password, SALT) // Encriptar password
 		const user = new User({
 			username,
 			nombre,
