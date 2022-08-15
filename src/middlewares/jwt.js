@@ -1,18 +1,21 @@
 const { jwtVerify } = require('jose')
+const { Unauthorized } = require('../utils/errors')
 
 const JWT = async (req, res, next) => {
-	const { authorization } = req.headers
-	if (!authorization)
-		return res.status(401).send({ error: 'No token provided' })
-
 	try {
+		const { authorization } = req.headers
+		if (!authorization) throw new Unauthorized('No token provided')
 		const [, token] = authorization.split(' ') // authorization: 'Bearer <token>'
-		const { payload } = await jwtVerify(token, process.env.JWT_SECRET)
+		const encoder = new TextEncoder()
+		const { payload } = await jwtVerify(
+			token,
+			encoder.encode(process.env.JWT_SECRET)
+		)
+		if (!payload) throw new Unauthorized('Invalid token')
 		req.id = payload.id
-
 		next()
 	} catch (error) {
-		return res.status(401).send({ error: 'Token invalid' })
+		next(error)
 	}
 }
 

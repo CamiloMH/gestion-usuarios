@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const fs = require('fs')
+const { NotFound } = require('../utils/errors')
 
 const PATH_ROUTES = __dirname
 
@@ -18,7 +19,7 @@ fs.readdirSync(PATH_ROUTES).filter(file => {
 
 // Manejador general de errores 404 (al final del listado de rutas de los endpoints)
 router.use((req, res) => {
-	res.status(404).send(process.env.MSG_RND)
+	throw new NotFound('not found')
 })
 
 module.exports = router
