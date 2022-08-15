@@ -1,6 +1,7 @@
 const validateSchemaLogin = require('../dto/auth/auth-login.dto.js')
 const validateSchemaRecoveryPassword = require('../dto/auth/auth-recovery-password.dto.js')
 const validateSchemaRegister = require('../dto/auth/auth-register.dto.js')
+const validateSchemaUserPassword = require('../dto/user/user-password.dto.js')
 const validateSchemaUserUpdate = require('../dto/user/user-update.dto.js')
 
 const validateSchemas = {
@@ -8,6 +9,7 @@ const validateSchemas = {
 	login: validateSchemaLogin,
 	recoveryPassword: validateSchemaRecoveryPassword,
 	userUpdate: validateSchemaUserUpdate,
+	userPassword: validateSchemaUserPassword,
 }
 
 module.exports = { validateSchemas }

@@ -1,3 +1,5 @@
+const { compare, hash } = require('bcrypt')
+const SALT = require('../constants/salt')
 const { User } = require('../db/models')
 const isActive = require('../utils/active')
 const { BadRequest } = require('../utils/errors')
@@ -47,6 +49,28 @@ const updateUser = async (req, res, next) => {
 	}
 }
 
+const updatePassword = async (req, res, next) => {
+	const { oldPassword, newPassword } = req.body
+	const { id } = req.params
+	try {
+		const user = await User.findOne({ where: { enable: true, id } })
+		if (!user) throw new BadRequest('User not found')
+
+		const checkPassword = await compare(oldPassword, user.password) // Comparar password con el hash de la base de datos
+		if (!checkPassword) throw new BadRequest('Credentials incorrect') // Si no coinciden, retornar error
+
+		const hashedPassword = await hash(newPassword, SALT) // Encriptar password
+
+		user.password = hashedPassword
+		user.updatedAt = new Date()
+
+		await user.save()
+		res.status(201).json({ status: 'OK', message: 'Password updated' })
+	} catch (error) {
+		next(error)
+	}
+}
+
 const deleteUser = async (req, res, next) => {
 	const { id } = req.params
 	try {
@@ -67,5 +91,6 @@ module.exports = {
 	getUsers,
 	getUser,
 	updateUser,
+	updatePassword,
 	deleteUser,
 }
