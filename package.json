@@ -1,7 +1,6 @@
 {
 	"name": "gestion-usuarios",
 	"version": "1.0.0",
-	"type": "module",
 	"description": "Aplicación para gestionar usuarios",
 	"main": "index.js",
 	"scripts": {
@@ -17,7 +16,6 @@
 	"author": "Camilo Muñoz",
 	"license": "ISC",
 	"devDependencies": {
-		"babel-register": "^6.26.0",
 		"eslint": "^8.21.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-config-standard": "^17.0.0",
