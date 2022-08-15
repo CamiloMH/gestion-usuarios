@@ -1,4 +1,5 @@
 const { jwtVerify } = require('jose')
+const { ROLE_ADMIN } = require('../constants/role')
 const { Unauthorized } = require('../utils/errors')
 
 const JWT = async (req, res, next) => {
@@ -13,10 +14,20 @@ const JWT = async (req, res, next) => {
 		)
 		if (!payload) throw new Unauthorized('Invalid token')
 		req.id = payload.id
+		req.role = payload.role
 		next()
 	} catch (error) {
 		next(error)
 	}
 }
 
-module.exports = { JWT }
+const roleAdmin = async (req, res, next) => {
+	try {
+		if (req.role !== ROLE_ADMIN) throw new Unauthorized('Unauthorized')
+		next()
+	} catch (error) {
+		next(error)
+	}
+}
+
+module.exports = { JWT, roleAdmin }
