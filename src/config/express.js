@@ -1,5 +1,5 @@
 const express = require('express')
-const handleErrors = require('../middlewares/handleErrors')
+const handleErrors = require('../middlewares/handle-errors')
 
 const app = express()
 
