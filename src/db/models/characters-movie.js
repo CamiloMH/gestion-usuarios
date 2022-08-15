@@ -18,6 +18,18 @@ module.exports = (sequelize, DataTypes) => {
 		{
 			idMovie: DataTypes.INTEGER,
 			idCharacter: DataTypes.INTEGER,
+			createdAt: {
+				type: DataTypes.DATE,
+				get() {
+					return this.getDataValue('createdAt').getTime()
+				},
+			},
+			updatedAt: {
+				type: DataTypes.DATE,
+				get() {
+					return this.getDataValue('updatedAt')?.getTime() || null
+				},
+			},
 		},
 		{
 			sequelize,

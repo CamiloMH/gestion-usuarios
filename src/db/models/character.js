@@ -16,6 +16,18 @@ module.exports = (sequelize, DataTypes) => {
 			name: DataTypes.STRING,
 			age: DataTypes.INTEGER,
 			history: DataTypes.STRING,
+			createdAt: {
+				type: DataTypes.DATE,
+				get() {
+					return this.getDataValue('createdAt').getTime()
+				},
+			},
+			updatedAt: {
+				type: DataTypes.DATE,
+				get() {
+					return this.getDataValue('updatedAt')?.getTime() || null
+				},
+			},
 		},
 		{
 			sequelize,
