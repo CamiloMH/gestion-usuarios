@@ -55,6 +55,7 @@ const login = async (req, res, next) => {
 }
 
 const recoveryPassword = (req, res) => {
+	// TODO: Implementar recuperación de contraseña
 	res.send('RecoveryPassword')
 }
 
