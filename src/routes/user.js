@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const {
-	deleteUser,
+	changeStatusUser,
 	getUser,
 	getUsers,
 	updateUser,
@@ -11,6 +11,7 @@ const { JWT, roleAdmin } = require('../middlewares/jwt.js')
 const {
 	userUpdateDTO,
 	userPasswordDTO,
+	userEnableDTO,
 } = require('../middlewares/user-validate.js')
 
 const router = Router()
@@ -38,6 +39,12 @@ router.patch('/:id', JWT, isOwner, userPasswordDTO, updatePassword)
 /**
  * @api {delete} /user/:id Eliminar un usuario por id
  */
-router.delete('/:id', JWT, roleAdmin, deleteUser)
+router.patch(
+	'/change-status/:id',
+	JWT,
+	roleAdmin,
+	userEnableDTO,
+	changeStatusUser
+)
 
 module.exports = router

@@ -71,17 +71,23 @@ const updatePassword = async (req, res, next) => {
 	}
 }
 
-const deleteUser = async (req, res, next) => {
+const changeStatusUser = async (req, res, next) => {
 	const { id } = req.params
+	const { enable } = req.body
 	try {
-		const user = await User.findOne({ where: { enable: true, id } })
+		const user = await User.findOne({ where: { id } })
 		if (!user) throw new BadRequest('User not found')
 
-		user.enable = false
+		user.enable = enable
 		user.updatedAt = new Date()
 
 		await user.save()
-		res.status(201).json({ status: 'OK', message: 'User deleted' })
+		res
+			.status(201)
+			.json({
+				status: 'OK',
+				message: enable ? 'User activated' : 'User deactivated',
+			})
 	} catch (error) {
 		next(error)
 	}
@@ -92,5 +98,5 @@ module.exports = {
 	getUser,
 	updateUser,
 	updatePassword,
-	deleteUser,
+	changeStatusUser,
 }

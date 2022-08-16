@@ -19,4 +19,13 @@ const userPasswordDTO = (req, res, next) => {
 	next()
 }
 
-module.exports = { userUpdateDTO, userPasswordDTO }
+const userEnableDTO = (req, res, next) => {
+	const isValid = validateSchemas.userEnable(req.body)
+	if (!isValid)
+		throw new BadRequest(
+			validateSchemas.userEnable.errors.map(error => error.message)
+		)
+	next()
+}
+
+module.exports = { userUpdateDTO, userPasswordDTO, userEnableDTO }

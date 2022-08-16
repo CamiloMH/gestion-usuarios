@@ -33,8 +33,15 @@ const emailDTO = Type.String({
 	},
 })
 
+const enableDTO = Type.Boolean({
+	errorMessage: {
+		type: 'enable debe ser un boolean',
+	},
+})
+
 module.exports = {
 	usernameDTO,
 	passwordDTO,
 	emailDTO,
+	enableDTO,
 }
