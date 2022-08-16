@@ -19,7 +19,7 @@ fs.readdirSync(PATH_ROUTES).filter(file => {
 
 // Manejador general de errores 404 (al final del listado de rutas de los endpoints)
 router.use((req, res) => {
-	throw new NotFound('not found')
+	throw new NotFound('route not found')
 })
 
 module.exports = router
